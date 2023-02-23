@@ -5,4 +5,10 @@ CREATE TABLE animals(id serial primary key,
  neutered boolean, 
  weight_kg decimal(20));
 
- alter table animals add column species varchar(20);
+alter table animals add column species varchar(20);
+
+CREATE TABLE owners (id SERIAL PRIMARY KEY,full_name TEXT,age INTEGER);
+CREATE TABLE species (id SERIAL PRIMARY KEY,name TEXT);
+ALTER TABLE animals DROP COLUMN species;
+ALTER TABLE animals ADD COLUMN species_id INTEGER, ADD CONSTRAINT fk_species FOREIGN KEY (species_id) REFERENCES species(id);
+ALTER TABLE animals ADD COLUMN owner_id INTEGER, ADD CONSTRAINT fk_owner FOREIGN KEY (owner_id) REFERENCES owners(id);
