@@ -17,3 +17,13 @@ ALTER TABLE animals ADD COLUMN owner_id INTEGER, ADD CONSTRAINT fk_owner FOREIGN
 CREATE TABLE vets (id SERIAL PRIMARY KEY, name TEXT, age INTEGER, date_of_graduation DATE);
 CREATE TABLE specializations (vet_id INTEGER, species_id INTEGER, FOREIGN KEY (vet_id) REFERENCES vets(id), FOREIGN KEY (species_id) REFERENCES species(id));
 CREATE TABLE visits (vet_id INTEGER, animal_id INTEGER, visit_date DATE, FOREIGN KEY (vet_id) REFERENCES vets(id), FOREIGN KEY (animal_id) REFERENCES animals(id));
+
+-- Add an email column to your owners table
+ALTER TABLE owners ADD COLUMN email VARCHAR(120);
+
+--data performance optimization
+CREATE INDEX animals_visits_idx ON visits(animal_id);
+
+CREATE INDEX vets_visits_idx ON visits(vet_id);
+
+CREATE INDEX owners_visits_idx ON owners(email);
